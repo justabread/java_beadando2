@@ -1,5 +1,7 @@
 package main;
 
+import javax.swing.JOptionPane;
+
 public class SetAmountWindow extends javax.swing.JFrame {
 
     private MainWindow mW;
@@ -10,9 +12,9 @@ public class SetAmountWindow extends javax.swing.JFrame {
     }
     
     public SetAmountWindow() {
-        initComponents();       
-        amountField.setText(String.valueOf("0"));
+        initComponents();
         amount = 1;
+        amountField.setText(String.valueOf(amount));        
     }
 
     /**
@@ -26,7 +28,6 @@ public class SetAmountWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         amountField = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -66,15 +67,11 @@ public class SetAmountWindow extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(145, 145, 145)
-                        .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -96,9 +93,7 @@ public class SetAmountWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -107,27 +102,39 @@ public class SetAmountWindow extends javax.swing.JFrame {
     private void okButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okButtonMouseClicked
         int stored = (Integer)mW.getPriceTable().getValueAt(mW.getPriceTable().getSelectedRow(), 3);
         amount = Integer.parseInt(amountField.getText());
+        boolean contains = false;
         
         if(stored >= amount && amount > 0)
         {
-            mW.getKosarTableModel().addRow(new Object [] {mW.getPriceTable().getValueAt(mW.getPriceTable().getSelectedRow(), 0) , amountField.getText()});
-            this.setVisible(false);
-            amountField.setText(String.valueOf("1"));
-            jLabel3.setText("");
+            for (int i = 0; i < mW.getKosarTable().getRowCount(); i++) {
+                if (mW.getPriceTable().getValueAt(mW.getPriceTable().getSelectedRow(), 0).toString().equalsIgnoreCase(mW.getKosarTable().getValueAt(i, 0).toString())) {
+                    contains = true;
+                }
+            }
             
+            if (contains) {
+                    JOptionPane.showMessageDialog(this, "Ez a termék már szerepel a kosárban!");
+            }else
+            {
+                mW.getKosarTableModel().addRow(new Object [] {mW.getPriceTable().getValueAt(mW.getPriceTable().getSelectedRow(), 0), mW.getPriceTable().getValueAt(mW.getPriceTable().getSelectedRow(), 1), amountField.getText()});
+                this.setVisible(false);
+                amountField.setText(String.valueOf("1"));
+            }
         }else if(amount == 0)
         {
-           jLabel3.setText("Ha nem szeretne semmit a kosárba tenni, lépjen vissza!");
+            JOptionPane.showMessageDialog(this, "Ha nem szeretne semmit a kosárba tenni, lépjen vissza!");
+        }else if(amount < 0)
+        {
+            JOptionPane.showMessageDialog(this, "Érvénytelen érték!");
         }else
         {
-            jLabel3.setText("Többet kíván a kosárba tenni, mint amennyit tárolunk!");
+            JOptionPane.showMessageDialog(this, "Többet kíván a kosárba tenni, mint amennyit tárolunk!");
         }
     }//GEN-LAST:event_okButtonMouseClicked
 
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         this.setVisible(false);
         amountField.setText(String.valueOf("1"));
-        jLabel3.setText("");
     }//GEN-LAST:event_backButtonMouseClicked
 
     /**
@@ -173,7 +180,6 @@ public class SetAmountWindow extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton okButton;
     // End of variables declaration//GEN-END:variables
 }
