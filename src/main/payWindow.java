@@ -12,14 +12,14 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-public class payWindow extends javax.swing.JFrame {
+public class PayWindow extends javax.swing.JFrame {
     private MainWindow mW;
     
     public void setmW(MainWindow mW) {
         this.mW = mW;
     }
     
-    public payWindow() {
+    public PayWindow() {
         initComponents();
         numberField.setDocument(new JTextFieldLimit(19));
         yearField.setDocument(new JTextFieldLimit(2));
@@ -202,7 +202,7 @@ public class payWindow extends javax.swing.JFrame {
     private void numberFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numberFieldKeyPressed
         int length = numberField.getText().length();
         
-        if (Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())) {
+        if (Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar()) && !(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_SHIFT || evt.getKeyCode() == KeyEvent.VK_SPACE)) {
             JOptionPane.showMessageDialog(this, "Csak számokat írjon be!");
             evt.consume();
             numberField.setText(""+numberField.getText().substring(0, numberField.getText().length() - 1));
@@ -247,71 +247,103 @@ public class payWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonMouseClicked
 
     private void payButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payButtonMouseClicked
-        if(!(monthField.getText().equalsIgnoreCase("")) && !(yearField.getText().equalsIgnoreCase("")) && !(nameField.getText().equalsIgnoreCase("")) && !(numberField.getText().equalsIgnoreCase("")) && !(ccvField.getText().equalsIgnoreCase("")))
+        if((!nameField.getText().isEmpty()) && 
+            (!numberField.getText().isEmpty()) && 
+            (!yearField.getText().isEmpty()) && 
+            (!monthField.getText().isEmpty()) && 
+            (!ccvField.getText().isEmpty()) && 
+            numberField.getText().length() == 19 && 
+            yearField.getText().length() == 2 && 
+            monthField.getText().length() == 2 &&
+            ccvField.getText().length() == 3)
         {
-            if(Integer.parseInt(monthField.getText()) <= 12 && Integer.parseInt(monthField.getText()) > 0)
+            if(mW.getKosarTable().getRowCount() != 0)
             {
-                if(Integer.parseInt(yearField.getText()) >= 0)
-                {                   
-                    try {
-                    File buyFile = new File("buyFile.txt");
-                    if (buyFile.createNewFile()) {
-                    } else {
-                        try {
-                            FileWriter buyFileWriter = new FileWriter(buyFile, true);
-                            buyFileWriter.write("Kézbesítés " + nameField.getText() + " számára");
-                            buyFileWriter.write(System.lineSeparator());
-                            for(int k = 0; k < mW.getKosarTable().getRowCount(); k++)
-                            {
-                                
-                                buyFileWriter.write(mW.getKosarTable().getValueAt(k, 0).toString() + ";" + mW.getKosarTable().getValueAt(k, 1).toString());
-                                buyFileWriter.write(System.lineSeparator());
+                if(!(monthField.getText().equalsIgnoreCase("")) && !(yearField.getText().equalsIgnoreCase("")) && !(nameField.getText().equalsIgnoreCase("")) && !(numberField.getText().equalsIgnoreCase("")) && !(ccvField.getText().equalsIgnoreCase("")))
+                {
+                    if(Integer.parseInt(monthField.getText()) <= 12 && Integer.parseInt(monthField.getText()) > 0)
+                    {
+                        if(Integer.parseInt(yearField.getText()) >= 0)
+                        {                   
+                            try {
+                            File buyFile = new File("buyFile.txt");
+                            if (buyFile.createNewFile()) {
+                                try {
+                                    FileWriter buyFileWriter = new FileWriter(buyFile, true);
+                                    buyFileWriter.write("Kézbesítés " + nameField.getText() + " számára:");
+                                    buyFileWriter.write(System.lineSeparator());
+                                    for(int k = 0; k < mW.getKosarTable().getRowCount(); k++)
+                                    {
+
+                                        buyFileWriter.write(mW.getKosarTable().getValueAt(k, 0).toString() + " - " + mW.getKosarTable().getValueAt(k, 1).toString() + " Ft");
+                                        buyFileWriter.write(System.lineSeparator());
+                                    }
+
+                                    buyFileWriter.close();
+                                } catch (IOException e) {
+                                    System.out.println("An error occurred.");
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                try {
+                                    FileWriter buyFileWriter = new FileWriter(buyFile, true);
+                                    buyFileWriter.write("Kézbesítés " + nameField.getText() + " számára");
+                                    buyFileWriter.write(System.lineSeparator());
+                                    for(int k = 0; k < mW.getKosarTable().getRowCount(); k++)
+                                    {
+
+                                        buyFileWriter.write(mW.getKosarTable().getValueAt(k, 0).toString() + " - " + mW.getKosarTable().getValueAt(k, 1).toString() + " Ft");
+                                        buyFileWriter.write(System.lineSeparator());
+                                    }
+
+                                    buyFileWriter.close();
+                                } catch (IOException e) {
+                                    System.out.println("An error occurred.");
+                                    e.printStackTrace();
+                                }
+                            }
+                            } catch (IOException e) {
+                                System.out.println("An error occurred.");
+                                e.printStackTrace();
                             }
 
-                            buyFileWriter.close();
-                        } catch (IOException e) {
-                            System.out.println("An error occurred.");
-                            e.printStackTrace();
-                        }
-                    }
-                    } catch (IOException e) {
-                        System.out.println("An error occurred.");
-                        e.printStackTrace();
-                    }
-
-                    for(int i = 0; i < mW.getPriceTable().getRowCount(); i++)
-                    {
-                        for(int j = 0; j < mW.getKosarTable().getRowCount(); j++)
+                            for(int i = 0; i < mW.getPriceTable().getRowCount(); i++)
+                            {
+                                for(int j = 0; j < mW.getKosarTable().getRowCount(); j++)
+                                {
+                                    if(mW.getPriceTable().getValueAt(i, 0).toString().equalsIgnoreCase(mW.getKosarTable().getValueAt(j, 0).toString()))
+                                    {                               
+                                        int darab = Integer.parseInt(mW.getPriceTable().getValueAt(i, 3).toString()) - Integer.parseInt(mW.getKosarTable().getValueAt(j, 2).toString());
+                                        mW.getPriceTable().setValueAt(darab,i, 3);                               
+                                    }                           
+                                }
+                            }
+                            mW.getKosarTableModel().setRowCount(0);
+                            this.setVisible(false);
+                        }else
                         {
-                            if(mW.getPriceTable().getValueAt(i, 0).toString().equalsIgnoreCase(mW.getKosarTable().getValueAt(j, 0).toString()))
-                            {                               
-                                int darab = Integer.parseInt(mW.getPriceTable().getValueAt(i, 3).toString()) - Integer.parseInt(mW.getKosarTable().getValueAt(j, 2).toString());
-                                mW.getPriceTable().setValueAt(darab,i, 3);                               
-
-                                
-                                
-                            }                           
+                            JOptionPane.showMessageDialog(this, "Nem megfelelő év formátum!");
                         }
+                    }else
+                    {
+                        JOptionPane.showMessageDialog(this, "Nem megfelelő hónap formátum!");
                     }
-                    mW.getKosarTableModel().setRowCount(0);
                 }else
                 {
-                    JOptionPane.showMessageDialog(this, "Nem megfelelő év formátum!");
+                    JOptionPane.showMessageDialog(this, "Mező nem maradhat üresen!");
                 }
             }else
             {
-                JOptionPane.showMessageDialog(this, "Nem megfelelő hónap formátum!");
+                JOptionPane.showMessageDialog(this, "A bevásárló kosár üres!");
             }
         }else
         {
-            JOptionPane.showMessageDialog(this, "Mező nem maradhat üresen!");
+            JOptionPane.showMessageDialog(this, "Beviteli mező nem maradhat üresen, vagy nem teljesen kitöltve!");
         }
-               
-        
     }//GEN-LAST:event_payButtonMouseClicked
 
     private void nameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameFieldKeyPressed
-        if(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar()))
+        if(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar()) || (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_SHIFT || evt.getKeyCode() == KeyEvent.VK_SPACE))
         {
             evt = evt;
         }
@@ -324,7 +356,7 @@ public class payWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldKeyPressed
 
     private void monthFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_monthFieldKeyPressed
-        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())))
+        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())) || (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_SHIFT || evt.getKeyCode() == KeyEvent.VK_SPACE))
         {
             evt = evt;
         }
@@ -337,7 +369,7 @@ public class payWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_monthFieldKeyPressed
 
     private void yearFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_yearFieldKeyPressed
-        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())))
+        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())) || (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_SHIFT || evt.getKeyCode() == KeyEvent.VK_SPACE))
         {
             evt = evt;
         }
@@ -350,7 +382,7 @@ public class payWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_yearFieldKeyPressed
 
     private void ccvFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ccvFieldKeyPressed
-        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())))
+        if(!(Character.isLetter(evt.getKeyChar()) || Character.isISOControl(evt.getKeyChar())) || (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_SHIFT || evt.getKeyCode() == KeyEvent.VK_SPACE))
         {
             evt = evt;
         }
@@ -376,20 +408,21 @@ public class payWindow extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(payWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PayWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(payWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PayWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(payWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PayWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(payWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PayWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new payWindow().setVisible(true);
+                new PayWindow().setVisible(true);
             }
         });        
     }

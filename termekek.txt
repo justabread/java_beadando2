@@ -1,88 +1,47 @@
-MSI B450 TOMAHAWK MAX;34900;alaplap;14
-MSI MAG B550;51900;alaplap;12
-ASUS ROG STRIX B450-F GAMING;37990;alaplap;21
-GIGABYTE B450M DS3H;23100;alaplap;3
-ASUS ROG STRIX B550-F GAMING;63499;alaplap;19
-GIGABYTE B450 AORUS ELITE;30900;alaplap;19
-ASUS PRIME H310M-R R2.0;18000;alaplap;14
+MSI B450 TOMAHAWK MAX;34900;alaplap;11
+MSI MAG B550;51900;alaplap;7
+ASUS ROG STRIX B450-F GAMING;37990;alaplap;20
+GIGABYTE B450M DS3H;23100;alaplap;2
+ASUS ROG STRIX B550-F GAMING;63499;alaplap;16
+ASUS PRIME H310M-R R2.0;18000;alaplap;12
 MSI Z490-A PRO;51500;alaplap;15
-GIGABYTE B550M AORUS PRO;39170;alaplap;7
+GIGABYTE B550M AORUS PRO;39170;alaplap;6
 MSI Z390-A PRO;36480;alaplap;6
-Western Digital Caviar Blue;11800;belső merevlemez;5
-Seagate BarraCuda;17615;belső merevlemez;9
-Toshiba P300;20890;belső merevlemez;21
-Western Digital Red;35800;belső merevlemez;22
-Seagate IronWolf;35860;belső merevlemez;17
-Western Digital Purple;32200;belső merevlemez;3
-Western Digital Blue;14800;belső merevlemez;8
-Western Digital Red Pro;11800;belső merevlemez;10
 Western Digital Elements;17700;külső merevlemez;7
 Western Digital Elements Portable;23300;külső merevlemez;5
-Toshiba Canvio Basics;17900;külső merevlemez;12
 Seagate Backup Plus Slim;23790;külső merevlemez;9
 Western Digital My Passport;25090;külső merevlemez;9
-ADATA DashDrive Durable HD650;26290;külső merevlemez;6
 Seagate Game Drive for Xbox;30000;külső merevlemez;19
-Seagate Expansion Portable;37390;külső merevlemez;20
-Seagate Basic;34620;külső merevlemez;12
 AMD Ryzen 5 5600X;134240;processzor;8
 AMD Ryzen 5 3600;73600;processzor;6
 AMD Ryzen 7 2700X;64590;processzor;12
 AMD Ryzen 3 3100;33700;processzor;24
 AMD Ryzen 5 2600X;48200;processzor;6
 AMD Ryzen 5 3600X;82250;processzor;7
-Intel Core i5-9400F;44590;processzor;8
-Intel Core i3-9100F;27179;processzor;15
-Intel Core i5-9600K;66710;processzor;17
 AMD Ryzen 5 1600;39590;processzor;22
-Intel Core i9-9900K;135995;processzor;18
 AMD Ryzen 9 3900x;153490;processzor;14
-Intel Core i5-10600K;87741;processzor;13
-Kingston A400;9500;ssd meghajtó;9
 Samsung 860 EVO;21800;ssd meghajtó;8
-Kingston A2000;19800;ssd meghajtó;3
 Samsung 970;48380;ssd meghajtó;2
-Western Digital Blue 3D NAND;18900;ssd meghajtó;4
 Samsung 870 QVO;35700;ssd meghajtó;5
-Crucial BX500;9700;ssd meghajtó;7
 Samsung 980 PRO;98500;ssd meghajtó;7
 Samsung T7;36700;ssd meghajtó;6
-Integral INSSD120GS625P5;6300;ssd meghajtó;3
-Crucial P1;36300;ssd meghajtó;5
 SilentiumPC Signum SG1 TG;15890;számítógép ház;20
-Aerocool Ore Saturn;14500;számítógép ház;22
 Cooler Master MasterBox;14420;számítógép ház;36
-NZXT H510;25200;számítógép ház;28
 SilentiumPC Signum SG1V EVO TG;21950;számítógép ház;45
 Zalman S4 Plus;14770;számítógép ház;26
 Zalman S3;11370;számítógép ház;19
 Zalman S5;16590;számítógép ház;28
-be quiet! Pure Base 500DX;37215;számítógép ház;27
 SilentiumPC Regnum RG6V Evo TG;26490;számítógép ház;27
-Lian Li LANCOOL 215 ARGB;26507;számítógép ház;29
 Fractal Design Meshify C TG;32490;számítógép ház;15
 Cooler Master MasterCase H500P;52000;számítógép ház;14
 Cooler Master MasterBox Q300L;14050;számítógép ház;19
-Kolink Observatory TG;25700;számítógép ház;17
-NZXT H510i;31800;számítógép ház;31
 Zalman I3;19000;számítógép ház;22
-ARCTIC Freezer 34;12590;számítógép hűtő;5
-be quiet! DARK ROCK PRO 4;29090;számítógép hűtő;10
 Cooler Master MasterLiquid Lite;17490;számítógép hűtő;15
-be quiet! Dark Rock 4;21890;számítógép hűtő;14
 Cooler Master Hyper 212 EVO;10690;számítógép hűtő;13
-Noctua NH-D15;36990;számítógép hűtő;11
-be quiet! Pure Rock 2;12697;számítógép hűtő;13
 Cooler Master Hyper 212;14720;számítógép hűtő;7
 NZXT Kraken M22;26150;számítógép hűtő;5
 Cooler Master Elite V3 600W;16250;tápegység;9
 SilentiumPC Supremo FM2 750W Gold;35490;tápegység;19
-Seasonic FOCUS GX-550W Gold;31900;tápegység;15
 FSP Hyper M 600W Modular;22390;tápegység;17
 CHIEFTEC Smart 700W;17290;tápegység;3
-GIGABYTE GeForce RTX 2060;124990;videókártya;12
-GIGABYTE GeForce GTX 1660;93390;videókártya;18
-GGIGABYTE GeForce RTX 2070 SUPER;190600;videókártya;6
-ASUS GeForce RTX 3080;379900;videókártya;9
-GIGABYTE GeForce RTX 2060 SUPER;172990;videókártya;20
 MSI GeForce RTX 3070 8GB;336990;videókártya;21

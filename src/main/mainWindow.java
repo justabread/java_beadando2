@@ -23,7 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
     private final DefaultTableModel priceTableModel; 
     private final DefaultTableModel kosarTableModel;
     private final SetAmountWindow setaW;
-    private final payWindow setpW;
+    private final PayWindow setpW;
     
     public MainWindow() {
         initComponents();
@@ -32,7 +32,7 @@ public class MainWindow extends javax.swing.JFrame {
         kosarTableModel = (DefaultTableModel) kosarTable.getModel();
         wishTableModel = (DefaultTableModel) wishTable.getModel();
         setaW = new SetAmountWindow();
-        setpW = new payWindow();
+        setpW = new PayWindow();
         setaW.setmW(this);
         setpW.setmW(this);
         updateFinalPrice();
@@ -649,8 +649,15 @@ public class MainWindow extends javax.swing.JFrame {
           
         if(kosarTable.getSelectedRow() != -1)
         {
-            amount = Integer.parseInt(kosarTableModel.getValueAt(kosarTable.getSelectedRow(), 2).toString());
-            stored = (Integer)priceTable.getValueAt(kosarTable.getSelectedRow(), 3);
+            amount = Integer.parseInt(kosarTable.getValueAt(kosarTable.getSelectedRow(), 2).toString());
+            
+            for(int i = 0; i < priceTable.getRowCount(); i++)
+            {
+                if(priceTable.getValueAt(i, 0).toString().equalsIgnoreCase(kosarTable.getValueAt(kosarTable.getSelectedRow(), 0).toString()))
+                {
+                    stored = (Integer)priceTable.getValueAt(i, 3);
+                }
+            }          
             
             if(stored > amount && amount > 0)
             {
