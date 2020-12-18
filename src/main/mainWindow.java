@@ -58,6 +58,19 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             File kosarFile = new File("kosarFile.txt");
             if (kosarFile.createNewFile()) {
+                try {
+                    FileWriter kosarFileWriter = new FileWriter(kosarFile);
+                    for(int i = 0; i < kosarTable.getRowCount(); i++)
+                    {
+                        kosarFileWriter.write(kosarTable.getValueAt(i, 0).toString() + ";" + kosarTable.getValueAt(i, 1).toString() + ";" + kosarTable.getValueAt(i, 2).toString());
+                        kosarFileWriter.write(System.lineSeparator());
+                    }
+                    
+                    kosarFileWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
             } else {
                 try {
                     FileWriter kosarFileWriter = new FileWriter(kosarFile);
@@ -92,6 +105,19 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             File wishFile = new File("wishFile.txt");
             if (wishFile.createNewFile()) {
+                try {
+                    FileWriter wishFileWriter = new FileWriter(wishFile);
+                    for(int i = 0; i < wishTable.getRowCount(); i++)
+                    {
+                        wishFileWriter.write(wishTable.getValueAt(i, 0).toString() + ";" + wishTable.getValueAt(i, 1).toString());
+                        wishFileWriter.write(System.lineSeparator());
+                    }
+                    
+                    wishFileWriter.close();
+                } catch (IOException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+                }
             } else {
                 try {
                     FileWriter wishFileWriter = new FileWriter(wishFile);
